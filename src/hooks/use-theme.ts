@@ -3,7 +3,7 @@ import { useColorScheme } from "./use-color-scheme";
 
 export default function useTheme() {
   const scheme = useColorScheme();
-  const theme = scheme === "unspecified" ? "light" : scheme;
+  const theme = scheme === "unspecified" ? "light" : "dark";
 
   return Colors[theme];
 }

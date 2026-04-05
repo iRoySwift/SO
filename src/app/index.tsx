@@ -1,11 +1,11 @@
 import AnimatedIcon from "@/components/animated-icon";
 import HintRow from "@/components/hint-row";
+import ScreenContainer from "@/components/screen-container";
 import ThemedText from "@/components/themed-text";
 import ThemedView from "@/components/themed-view";
-import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
+import { Spacing } from "@/constants/theme";
 import * as Device from "expo-device";
-import { Platform, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Platform, StyleSheet, View } from "react-native";
 
 function getDevMenuHint() {
   if (Platform.OS === "web") {
@@ -29,44 +29,29 @@ function getDevMenuHint() {
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-        <ThemedText type="code" style={styles.code}>
-          get started
+    <ScreenContainer>
+      <View style={styles.heroSection}>
+        <AnimatedIcon />
+        <ThemedText type="title" style={styles.title}>
+          Welcome to&nbsp;Expo
         </ThemedText>
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-        </ThemedView>
-      </SafeAreaView>
-    </ThemedView>
+      </View>
+      <ThemedText type="code" style={styles.code}>
+        get started
+      </ThemedText>
+      <ThemedView type="backgroundElement" style={styles.stepContainer}>
+        <HintRow
+          title="Try editing"
+          hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
+        />
+        <HintRow title="Dev tools" hint={getDevMenuHint()} />
+      </ThemedView>
+    </ScreenContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  safeArea: {
-    paddingHorizontal: Spacing.four,
-    alignItems: "center",
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
   heroSection: {
-    paddingHorizontal: Spacing.four,
     alignItems: "center",
     justifyContent: "center",
     flex: 1,

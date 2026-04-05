@@ -20,9 +20,9 @@ const ThemedView: React.FC<ThemedViewProps> = ({
   const colorScheme = useColorScheme();
 
   const backgroundColor =
-    colorScheme === "dark"
-      ? (darkColor ?? theme[type ?? "background"])
-      : (lightColor ?? theme[type ?? "background"]);
+    colorScheme === "light"
+      ? (lightColor ?? theme[type ?? "background"])
+      : (darkColor ?? theme[type ?? "background"]);
   return <View style={[{ backgroundColor }, style]} {...otherProps} />;
 };
 export default ThemedView;

@@ -1,13 +1,10 @@
+import useTheme from "@/hooks/use-theme";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 import React from "react";
-import { useColorScheme } from "react-native";
-
-import { Colors } from "@/constants/theme";
 
 interface Props {}
 const AppTabs: React.FC<Props> = () => {
-  const scheme = useColorScheme();
-  const colors = Colors[scheme === "unspecified" ? "light" : scheme];
+  const colors = useTheme();
 
   return (
     <NativeTabs
