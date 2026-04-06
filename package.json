@@ -8,7 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "prepare": "husky"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^7.7.3",
@@ -20,6 +21,7 @@
     "expo-font": "~55.0.4",
     "expo-glass-effect": "~55.0.10",
     "expo-image": "~55.0.8",
+    "expo-linear-gradient": "~55.0.11",
     "expo-linking": "~55.0.11",
     "expo-router": "~55.0.10",
     "expo-splash-screen": "~55.0.15",
@@ -39,6 +41,9 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~55.0.0",
+    "husky": "^9.1.7",
     "typescript": "~5.9.2"
   },
   "private": true
