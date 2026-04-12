@@ -1,12 +1,12 @@
-import AnimatedIcon from "@/components/animated-icon";
-import HintRow from "@/components/hint-row";
+import Balance from "@/components/balance";
 import ScreenContainer from "@/components/screen-container";
 import ThemedText from "@/components/themed-text";
-import ThemedView from "@/components/themed-view";
+import TokenList from "@/components/token-list";
 import { Spacing } from "@/constants/theme";
 import * as Device from "expo-device";
+import { Image } from "expo-image";
+import { LinearGradient } from "expo-linear-gradient";
 import { Platform, StyleSheet, View } from "react-native";
-
 function getDevMenuHint() {
   if (Platform.OS === "web") {
     return <ThemedText type="small">use browser devtools</ThemedText>;
@@ -30,13 +30,38 @@ function getDevMenuHint() {
 export default function HomeScreen() {
   return (
     <ScreenContainer>
-      <View style={styles.heroSection}>
-        <AnimatedIcon />
-        <ThemedText type="title" style={styles.title}>
-          Welcome to&nbsp;Expo
-        </ThemedText>
+      <Balance />
+      <View style={styles.btnBox}>
+        <View style={styles.btn}>
+          <Image
+            source={require("@/assets/images/icons/money-send.png")}
+            style={styles.btnIcon}
+            contentFit="contain"
+          />
+        </View>
+        <LinearGradient
+          colors={["#0061FF", "#6100FF"]}
+          start={{ x: 0.5, y: 0 }}
+          end={{ x: 0.5, y: 1 }}
+          style={styles.btn}>
+          <Image
+            source={require("@/assets/images/icons/money-plus.png")}
+            style={styles.btnIcon}
+            contentFit="contain"
+          />
+        </LinearGradient>
+        <View style={styles.btn}>
+          <Image
+            source={require("@/assets/images/icons/money-recive.png")}
+            style={styles.btnIcon}
+            contentFit="contain"
+          />
+        </View>
       </View>
-      <ThemedText type="code" style={styles.code}>
+      <View style={styles.tokens}>
+        <TokenList />
+      </View>
+      {/* <ThemedText type="code" style={styles.code}>
         get started
       </ThemedText>
       <ThemedView type="backgroundElement" style={styles.stepContainer}>
@@ -45,19 +70,33 @@ export default function HomeScreen() {
           hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
         />
         <HintRow title="Dev tools" hint={getDevMenuHint()} />
-      </ThemedView>
+      </ThemedView> */}
     </ScreenContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  heroSection: {
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
+  btnBox: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: Spacing.five,
+    marginHorizontal: 20,
   },
-  title: {
-    textAlign: "center",
+  btn: {
+    width: 76,
+    height: 76,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#2A3547",
+    borderRadius: 38,
+  },
+  btnIcon: {
+    width: 34,
+    height: 34,
+  },
+  tokens: {
+    marginTop: 34,
+    gap: 20,
   },
   code: {
     textTransform: "uppercase",

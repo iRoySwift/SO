@@ -8,7 +8,8 @@
     "scheme": "so",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.royswift.wallet.so"
     },
     "android": {
       "adaptiveIcon": {

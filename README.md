@@ -54,3 +54,54 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## Development Build
+
+1. 生成原生 iOS 工程
+
+```zsh
+npx expo prebuild -p ios
+```
+
+2. 安装 CocoaPods
+
+```zsh
+cd ios
+pod install
+cd ..
+```
+
+3. 编译并装到模拟器
+
+```zsh
+npm run ios
+```
+
+## 装到真机：
+
+1. 用数据线连 iPhone
+
+- 先执行
+
+```zsh
+npx expo run:ios --device
+```
+
+2. 选择你的设备
+
+3. 第一次通常还要在 Xcode 里设置签名：
+
+- 打开 ios/SO.xcworkspace
+- Signing & Capabilities
+- 选择你的 Apple ID Team
+- 确保 Bundle Identifier 唯一
+
+## 省掉本地 Xcode 调试，也可以走 EAS Development Build 装到手机
+
+1. 登录 Expo 账号
+2. Apple Developer 账号
+3. 走云构建
+
+```zsh
+npx eas build --profile development --platform ios
+```

@@ -20,7 +20,7 @@ export const Colors = {
     background: "#0F111E",
     backgroundElement: "#212225",
     backgroundSelected: "#2E3135",
-    textSecondary: "#B0B4BA",
+    textSecondary: "#A0A0A0",
   },
 } as const;
 
