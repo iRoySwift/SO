@@ -21,7 +21,7 @@ const TokenList: React.FC<Props> = () => {
         <View style={styles.list}>
           {list[activeTab].map(i => (
             <View key={i}>
-              <Token />
+              <Token type="nft" />
               {i < list[activeTab].length - 1 && <Divider spacing={17} />}
             </View>
           ))}

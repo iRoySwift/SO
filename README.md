@@ -105,3 +105,17 @@ npx expo run:ios --device
 ```zsh
 npx eas build --profile development --platform ios
 ```
+
+## 项目依赖检测
+
+```zsh
+# 看 Expo 相关包是否和当前 SDK 对齐
+npx expo install --check
+
+# 查配置、依赖、原生工程等常见问题
+npx expo-doctor
+
+# 看普通 npm 包有没有新版本
+# 但它不会判断这些版本是否“适配 Expo”
+npm outdated
+```

@@ -26,7 +26,7 @@ const ThemedText: React.FC<ThemedTextProps> = ({
   return (
     <Text
       style={[
-        { color: theme[themeColor ?? "text"] },
+        { color: theme[themeColor ?? "text"], fontFamily: "Urbanist_500Medium" },
         type === "default" && styles.default,
         type === "title" && styles.title,
         type === "small" && styles.small,
@@ -46,27 +46,25 @@ const styles = StyleSheet.create({
   small: {
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: 500,
   },
   smallBold: {
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: 700,
+    fontFamily: "Urbanist_700Bold",
   },
   default: {
     fontSize: 19,
     lineHeight: 24,
-    fontWeight: 500,
   },
   title: {
     fontSize: 48,
-    fontWeight: 600,
     lineHeight: 52,
+    fontFamily: "Urbanist_600SemiBold",
   },
   subtitle: {
     fontSize: 32,
     lineHeight: 44,
-    fontWeight: 600,
+    fontFamily: "Urbanist_600SemiBold",
   },
   link: {
     lineHeight: 30,

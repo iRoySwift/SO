@@ -37,7 +37,15 @@
         }
       ],
       "expo-image",
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-font",
+      [
+        "expo-dev-client",
+        {
+          "launchMode": "most-recent",
+          "addGeneratedScheme": true
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
