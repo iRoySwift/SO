@@ -1,4 +1,5 @@
 import Svg, { Path } from "react-native-svg";
+import { Canvas, Circle, Group } from "@shopify/react-native-skia";
 
 interface Props {
   color?: string;

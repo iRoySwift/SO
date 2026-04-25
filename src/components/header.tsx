@@ -1,7 +1,7 @@
 import { HeaderHeight } from "@/constants/theme";
 import useTheme from "@/hooks/use-theme";
-import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
+import { SymbolView } from "expo-symbols";
 import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Animated, {
@@ -45,20 +45,38 @@ const Header: React.FC<Props> = ({ headerStyle, children, scrollY }) => {
             style={styles.border}>
             <View style={styles.avatar} />
           </LinearGradient>
-          <ThemedText style={styles.name} type="small" themeColor="text">
+          <ThemedText style={styles.name} themeColor="text">
             Account_1
           </ThemedText>
         </View>
         <View style={styles.center}>{children}</View>
         <View style={styles.right}>
-          <Image
-            style={styles.image}
-            source={require("@/assets/images/icons/bell.png")}
-          />
-          <View style={styles.notification}>
-            <ThemedText type="small" themeColor="text">
-              5
-            </ThemedText>
+          <View>
+            <SymbolView
+              name={{
+                ios: "bell.fill",
+                android: "notifications",
+                web: "notifications",
+              }}
+              tintColor="#FFF"
+              size={32}
+            />
+            <View style={styles.notification}>
+              <ThemedText type="xsmall" themeColor="text">
+                5
+              </ThemedText>
+            </View>
+          </View>
+          <View>
+            <SymbolView
+              name={{
+                ios: "qrcode.viewfinder",
+                android: "qr_code_scanner",
+                web: "qr_code_scanner",
+              }}
+              tintColor="#FFF"
+              size={32}
+            />
           </View>
         </View>
       </View>
@@ -96,7 +114,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   center: {},
-  right: {},
+  right: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
   image: {
     width: 32,
     height: 32,

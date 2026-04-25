@@ -7,9 +7,12 @@ export type ThemedTextProps = TextProps & {
   type?:
     | "default"
     | "title"
-    | "small"
-    | "smallBold"
     | "subtitle"
+    | "xsmall"
+    | "small"
+    | "large"
+    | "xlarge"
+    | "xxlarge"
     | "link"
     | "linkPrimary"
     | "code";
@@ -26,12 +29,18 @@ const ThemedText: React.FC<ThemedTextProps> = ({
   return (
     <Text
       style={[
-        { color: theme[themeColor ?? "text"], fontFamily: "Urbanist_500Medium" },
+        {
+          color: theme[themeColor ?? "text"],
+          fontFamily: "Urbanist_600SemiBold",
+        },
         type === "default" && styles.default,
         type === "title" && styles.title,
-        type === "small" && styles.small,
-        type === "smallBold" && styles.smallBold,
         type === "subtitle" && styles.subtitle,
+        type === "xsmall" && styles.xsmall,
+        type === "small" && styles.small,
+        type === "large" && styles.large,
+        type === "xlarge" && styles.xlarge,
+        type === "xxlarge" && styles.xxlarge,
         type === "link" && styles.link,
         type === "linkPrimary" && styles.linkPrimary,
         type === "code" && styles.code,
@@ -43,28 +52,38 @@ const ThemedText: React.FC<ThemedTextProps> = ({
 };
 
 const styles = StyleSheet.create({
+  xsmall: {
+    fontSize: 12,
+    lineHeight: 16,
+    fontFamily: "Urbanist_500Medium",
+  },
   small: {
     fontSize: 14,
     lineHeight: 20,
   },
-  smallBold: {
-    fontSize: 14,
-    lineHeight: 20,
-    fontFamily: "Urbanist_700Bold",
-  },
   default: {
-    fontSize: 19,
+    fontSize: 16,
     lineHeight: 24,
   },
+  large: {
+    fontSize: 18,
+    lineHeight: 28,
+  },
+  xlarge: {
+    fontSize: 20,
+    lineHeight: 28,
+  },
+  xxlarge: {
+    fontSize: 24,
+    lineHeight: 32,
+  },
   title: {
-    fontSize: 48,
-    lineHeight: 52,
-    fontFamily: "Urbanist_600SemiBold",
+    fontSize: 40,
+    lineHeight: 48,
   },
   subtitle: {
     fontSize: 32,
     lineHeight: 44,
-    fontFamily: "Urbanist_600SemiBold",
   },
   link: {
     lineHeight: 30,

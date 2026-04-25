@@ -6,8 +6,8 @@ interface Props {}
 const Balance: React.FC<Props> = () => {
   return (
     <View style={styles.container}>
-      <ThemedText style={styles.title}>Current Wallet Balance</ThemedText>
-      <ThemedText style={styles.balance}>$ 5,323.00</ThemedText>
+      <ThemedText type="small">Current Wallet Balance</ThemedText>
+      <ThemedText type="title">$ 5,323.00</ThemedText>
     </View>
   );
 };
@@ -19,14 +19,6 @@ const styles = StyleSheet.create({
     gap: 8,
     marginTop: 30,
     marginBottom: 35,
-  },
-  title: {
-    fontSize: 14,
-    fontWeight: "semibold",
-  },
-  balance: {
-    fontSize: 40,
-    fontWeight: "bold",
   },
 });
 

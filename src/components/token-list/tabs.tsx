@@ -2,32 +2,39 @@ import { Spacing } from "@/constants/theme";
 import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import ThemedText from "../themed-text";
+import { TAB_TYPE, TabType } from "./type";
 
 interface Props {
-  activeTab: "tokens" | "nfts";
-  setActiveTab: (tab: "tokens" | "nfts") => void;
+  activeTab: TabType;
+  setActiveTab: (tab: TabType) => void;
 }
 const Tabs: React.FC<Props> = ({ activeTab, setActiveTab }) => {
-  const handleTabPress = (tab: "tokens" | "nfts") => {
+  const handleTabPress = (tab: TabType) => {
     setActiveTab(tab);
   };
   return (
     <View style={styles.tabs}>
       <TouchableOpacity
-        style={[styles.tab, activeTab === "tokens" && styles.active]}
-        onPress={() => handleTabPress("tokens")}
-        disabled={activeTab === "tokens"}>
+        style={[styles.tab, activeTab === TAB_TYPE.tokens && styles.active]}
+        onPress={() => handleTabPress(TAB_TYPE.tokens)}
+        disabled={activeTab === TAB_TYPE.tokens}>
         <ThemedText
-          style={[styles.text, activeTab === "tokens" && styles.activeText]}>
+          style={[
+            styles.text,
+            activeTab === TAB_TYPE.tokens && styles.activeText,
+          ]}>
           Tokens
         </ThemedText>
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.tab, activeTab === "nfts" && styles.active]}
-        onPress={() => handleTabPress("nfts")}
-        disabled={activeTab === "nfts"}>
+        style={[styles.tab, activeTab === TAB_TYPE.nfts && styles.active]}
+        onPress={() => handleTabPress(TAB_TYPE.nfts)}
+        disabled={activeTab === TAB_TYPE.nfts}>
         <ThemedText
-          style={[styles.text, activeTab === "nfts" && styles.activeText]}>
+          style={[
+            styles.text,
+            activeTab === TAB_TYPE.nfts && styles.activeText,
+          ]}>
           NFTs
         </ThemedText>
       </TouchableOpacity>
