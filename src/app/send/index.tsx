@@ -1,54 +1,117 @@
 import Divider from "@/components/divider";
-import Token from "@/components/token-list/token";
-import { TAB_TYPE } from "@/components/token-list/type";
-import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import Grabber from "@/components/grabber";
+import ModalHeader from "@/components/modal-header";
+import AddressList from "@/components/send/addressList";
+import ThemedText from "@/components/themed-text";
+import { router } from "expo-router";
+import { SymbolView } from "expo-symbols";
+import React, { useCallback, useState } from "react";
+import { StyleSheet, TextInput, View } from "react-native";
 import Animated from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface Props {}
 const Send: React.FC<Props> = () => {
-  const [list] = useState({
-    tokens: Array.from({ length: 20 }).map((_, i) => i),
-    nfts: Array.from({ length: 5 }).map((_, i) => i),
-  });
-  const activeTab = TAB_TYPE.tokens;
+  const insets = useSafeAreaInsets();
+  const [address, setAddress] = useState("");
+  const [addressList] = useState(
+    Array.from({ length: 20 }).map((_, i) => ({
+      id: i + "",
+      name: `Address ${i + 1}`,
+      address: `0x${Math.random().toString(16).slice(2, 10)}`,
+    }))
+  );
+
+  const handlePress = useCallback(
+    (str?: string) => {
+      if (str || address) {
+        router.push({ pathname: "/send/confirm", params: { address: str || address } });
+      }
+    },
+    [address]
+  );
+
   return (
     <View style={styles.container}>
-      <View style={styles.grabberWrapper}>
-        <View style={styles.grabber} />
+      <Grabber />
+      <ModalHeader title="Send SOL" onNextPress={handlePress} />
+      <View style={styles.inputArea}>
+        <View style={styles.toRight}>
+          <ThemedText
+            style={{ marginRight: 10 }}
+            type="small"
+            themeColor="text">
+            To :
+          </ThemedText>
+          <TextInput
+            style={styles.input}
+            placeholder="Entry Address"
+            placeholderTextColor="#7E8085"
+            value={address}
+            onChangeText={setAddress}
+          />
+        </View>
+        <View>
+          <SymbolView
+            name={{
+              ios: "qrcode.viewfinder",
+              android: "qr_code_scanner",
+              web: "qr_code_scanner",
+            }}
+            tintColor="#FFF"
+            size={16}
+          />
+        </View>
       </View>
+      <Divider spacing={10} />
       <Animated.ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={[{ paddingBottom: insets.bottom }]}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.list}>
-          {list[activeTab].map(i => (
-            <View key={i}>
-              <Token type={activeTab} isHideTrend />
-              {i < list[activeTab].length - 1 && <Divider spacing={17} />}
-            </View>
-          ))}
-        </View>
+        <AddressList
+          title="Recent Addresses"
+          action="View all"
+          list={addressList.slice(0, 5)}
+          onPress={handlePress}
+        />
+        <Divider spacing={10} />
+        <AddressList
+          title="My saved address"
+          list={addressList}
+          onPress={handlePress}
+        />
       </Animated.ScrollView>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  inputArea: {
     marginHorizontal: 20,
-  },
-  grabberWrapper: {
+    marginTop: 16,
+    flexDirection: "row",
     alignItems: "center",
-    paddingTop: 10,
-    paddingBottom: 14,
+    justifyContent: "space-between",
   },
-  grabber: {
-    width: 36,
-    height: 5,
-    borderRadius: 999,
-    backgroundColor: "#7A7F8C",
+  toRight: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  list: {
-    paddingTop: 24,
+  input: {
+    flex: 1,
+    fontSize: 12,
+    paddingVertical: 10,
+    color: "#FFF",
+    marginTop: 4,
+  },
+  scrollView: {
+    flex: 1,
+    marginTop: 16,
   },
 });
 

@@ -15,6 +15,7 @@ export const Colors = {
     textSecondary: "#60646C",
     textPositive: "#0AFF96",
     textNegative: "#FF002E",
+    primary: "#007AFF",
   },
   dark: {
     background: "#0F111E",
@@ -24,6 +25,7 @@ export const Colors = {
     textSecondary: "#A0A0A0",
     textPositive: "#0AFF96",
     textNegative: "#FF002E",
+    primary: "#007AFF",
   },
 } as const;
 

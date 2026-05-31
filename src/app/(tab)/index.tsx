@@ -17,7 +17,7 @@ export default function HomeScreen() {
         <Pressable
           style={styles.btnBox}
           onPress={() => {
-            router.push("/send");
+            router.push("/send/select-token");
           }}>
           <View style={styles.btn}>
             <Image

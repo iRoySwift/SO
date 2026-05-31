@@ -8,13 +8,12 @@ export type ThemedTextProps = TextProps & {
     | "default"
     | "title"
     | "subtitle"
+    | "xxsmall"
     | "xsmall"
     | "small"
     | "large"
     | "xlarge"
     | "xxlarge"
-    | "link"
-    | "linkPrimary"
     | "code";
   themeColor?: ThemeColor;
 };
@@ -36,13 +35,12 @@ const ThemedText: React.FC<ThemedTextProps> = ({
         type === "default" && styles.default,
         type === "title" && styles.title,
         type === "subtitle" && styles.subtitle,
+        type === "xxsmall" && styles.xxsmall,
         type === "xsmall" && styles.xsmall,
         type === "small" && styles.small,
         type === "large" && styles.large,
         type === "xlarge" && styles.xlarge,
         type === "xxlarge" && styles.xxlarge,
-        type === "link" && styles.link,
-        type === "linkPrimary" && styles.linkPrimary,
         type === "code" && styles.code,
         style,
       ]}
@@ -52,6 +50,11 @@ const ThemedText: React.FC<ThemedTextProps> = ({
 };
 
 const styles = StyleSheet.create({
+  xxsmall: {
+    fontSize: 10,
+    lineHeight: 14,
+    fontFamily: "Urbanist_500Medium",
+  },
   xsmall: {
     fontSize: 12,
     lineHeight: 16,
@@ -84,15 +87,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 32,
     lineHeight: 44,
-  },
-  link: {
-    lineHeight: 30,
-    fontSize: 14,
-  },
-  linkPrimary: {
-    lineHeight: 30,
-    fontSize: 14,
-    color: "#3c87f7",
   },
   code: {
     fontFamily: Fonts.mono,
