@@ -48,7 +48,8 @@
           "launchMode": "most-recent",
           "addGeneratedScheme": true
         }
-      ]
+      ],
+      "expo-status-bar"
     ],
     "experiments": {
       "typedRoutes": true,

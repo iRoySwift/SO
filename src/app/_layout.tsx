@@ -1,4 +1,3 @@
-import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import useTheme from "@/hooks/use-theme";
 import {
   Urbanist_500Medium,
@@ -10,14 +9,9 @@ import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
-} from "@react-navigation/native";
+} from "expo-router/react-navigation";
 import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
 import { useColorScheme } from "react-native";
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -28,12 +22,6 @@ export default function RootLayout() {
     Urbanist_600SemiBold,
     Urbanist_700Bold,
   });
-
-  useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
 
   if (!loaded && !error) {
     return null;
@@ -50,7 +38,6 @@ export default function RootLayout() {
   };
   return (
     <ThemeProvider value={themedNavigationTheme}>
-      <AnimatedSplashOverlay />
       <Stack
         screenOptions={{
           headerShown: false,

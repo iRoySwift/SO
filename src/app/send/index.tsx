@@ -11,16 +11,16 @@ import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface Props {}
+
+const ADDRESS_LIST = Array.from({ length: 20 }).map((_, i) => ({
+  id: i + "",
+  name: `Address ${i + 1}`,
+  address: `0x${(i + 1).toString(16).padStart(8, "0")}`,
+}));
+
 const Send: React.FC<Props> = () => {
   const insets = useSafeAreaInsets();
   const [address, setAddress] = useState("");
-  const [addressList] = useState(
-    Array.from({ length: 20 }).map((_, i) => ({
-      id: i + "",
-      name: `Address ${i + 1}`,
-      address: `0x${Math.random().toString(16).slice(2, 10)}`,
-    }))
-  );
 
   const handlePress = useCallback(
     (str?: string) => {
@@ -72,13 +72,13 @@ const Send: React.FC<Props> = () => {
         <AddressList
           title="Recent Addresses"
           action="View all"
-          list={addressList.slice(0, 5)}
+          list={ADDRESS_LIST.slice(0, 5)}
           onPress={handlePress}
         />
         <Divider spacing={10} />
         <AddressList
           title="My saved address"
-          list={addressList}
+          list={ADDRESS_LIST}
           onPress={handlePress}
         />
       </Animated.ScrollView>

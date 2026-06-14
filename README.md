@@ -57,6 +57,7 @@ Join our community of developers creating universal apps.
 
 ## Development Build
 
+@deprecated
 1. 生成原生 iOS 工程
 
 ```zsh
@@ -106,7 +107,32 @@ npx expo run:ios --device
 npx eas build --profile development --platform ios
 ```
 
-## 项目依赖检测
+## 项目依赖检测与升级
+
+修复或升级依赖：
+
+```zsh
+# 看普通 npm 包有没有新版本
+# 但它不会判断这些版本是否“适配 Expo”
+npm outdated
+
+# 升级普通 npm 依赖到 package.json 允许范围内的最新版本
+npm update
+
+# 升级指定 Expo 包到当前 SDK 兼容版本
+npx expo install expo-image expo-router expo-font
+```
+
+例如升级到 SDK 56：
+
+```zsh
+npm install expo@56
+npx expo install --fix
+```
+
+官方流程：https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
+
+升级或修复后建议执行：
 
 ```zsh
 # 看 Expo 相关包是否和当前 SDK 对齐
@@ -115,7 +141,6 @@ npx expo install --check
 # 查配置、依赖、原生工程等常见问题
 npx expo-doctor
 
-# 看普通 npm 包有没有新版本
-# 但它不会判断这些版本是否“适配 Expo”
-npm outdated
+npm run lint
+npx expo start --clear
 ```
