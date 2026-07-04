@@ -1,12 +1,15 @@
 import Divider from "@/components/divider";
 import Grabber from "@/components/grabber";
 import ModalHeader from "@/components/modal-header";
+import SendTransactionSheet, {
+  BottomSheetModalRef,
+} from "@/components/send/send-transaction-sheet";
 import ThemedText from "@/components/themed-text";
 import useTheme from "@/hooks/use-theme";
 import { normalizeAmountInput } from "@/utils/common";
 import { router, useLocalSearchParams } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   Keyboard,
   LayoutChangeEvent,
@@ -19,18 +22,23 @@ import {
 
 interface Props {}
 
-const Send: React.FC<Props> = () => {
+const InputAmount: React.FC<Props> = () => {
   const [amount, setAmount] = useState("");
   const [amountWidth, setAmountWidth] = useState(24);
   const { address } = useLocalSearchParams<{ address: string }>();
   const amountFontSize = amount.length > 20 ? 20 : amount.length > 10 ? 30 : 40;
   const amountDisplayText = amount || "0";
   const theme = useTheme();
+  // 创建一个勾住子组件的 ref
+  const modalRef = useRef<BottomSheetModalRef>(null);
 
   const handlePress = useCallback(
     (str?: string) => {
       if (str || address) {
-        router.push({ pathname: "/send", params: { address: str || address } });
+        router.push({
+          pathname: "/send/select-address",
+          params: { address: str || address },
+        });
       }
     },
     [address]
@@ -44,8 +52,15 @@ const Send: React.FC<Props> = () => {
     setAmountWidth(Math.ceil(event.nativeEvent.layout.width));
   }, []);
 
+  const handleConfirm = useCallback(() => {
+    modalRef.current?.open();
+  }, []);
+
   return (
-    <Pressable style={styles.container} onPress={Keyboard.dismiss}>
+    <Pressable
+      testID="InputAmount"
+      style={styles.container}
+      onPress={Keyboard.dismiss}>
       <Grabber />
       <ModalHeader title="Send SOL" onNextPress={handlePress} />
       <View style={styles.addressWrap}>
@@ -127,12 +142,14 @@ const Send: React.FC<Props> = () => {
         </View>
         <Divider spacing={10} />
         <Pressable
-          style={{ ...styles.nextButton, backgroundColor: theme.primary }}>
+          style={{ ...styles.nextButton, backgroundColor: theme.primary }}
+          onPress={handleConfirm}>
           <ThemedText themeColor="text" style={styles.nextButtonText}>
-            下一步
+            Confirm
           </ThemedText>
         </Pressable>
       </View>
+      <SendTransactionSheet ref={modalRef} />
     </Pressable>
   );
 };
@@ -225,4 +242,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Send;
+export default InputAmount;

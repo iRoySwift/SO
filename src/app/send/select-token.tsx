@@ -17,10 +17,10 @@ const SelectToken: React.FC<Props> = () => {
   });
   const activeTab = TAB_TYPE.tokens;
   const handlePress = () => {
-    router.push("/send");
+    router.push("/send/select-address");
   };
   return (
-    <View style={styles.container}>
+    <View testID="SelectToken" style={styles.container}>
       <Grabber />
       <TextInput
         style={styles.input}

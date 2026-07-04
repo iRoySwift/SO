@@ -18,21 +18,21 @@ const ADDRESS_LIST = Array.from({ length: 20 }).map((_, i) => ({
   address: `0x${(i + 1).toString(16).padStart(8, "0")}`,
 }));
 
-const Send: React.FC<Props> = () => {
+const SelectAddress: React.FC<Props> = () => {
   const insets = useSafeAreaInsets();
   const [address, setAddress] = useState("");
 
   const handlePress = useCallback(
     (str?: string) => {
       if (str || address) {
-        router.push({ pathname: "/send/confirm", params: { address: str || address } });
+        router.push({ pathname: "/send/input-amount", params: { address: str || address } });
       }
     },
     [address]
   );
 
   return (
-    <View style={styles.container}>
+    <View testID="SelectAddress" style={styles.container}>
       <Grabber />
       <ModalHeader title="Send SOL" onNextPress={handlePress} />
       <View style={styles.inputArea}>
@@ -115,4 +115,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Send;
+export default SelectAddress;

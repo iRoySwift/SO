@@ -5,12 +5,12 @@ import {
   Urbanist_700Bold,
   useFonts,
 } from "@expo-google-fonts/urbanist";
+import { Stack } from "expo-router";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "expo-router/react-navigation";
-import { Stack } from "expo-router";
 import { useColorScheme } from "react-native";
 
 export default function RootLayout() {
@@ -38,6 +38,7 @@ export default function RootLayout() {
   };
   return (
     <ThemeProvider value={themedNavigationTheme}>
+      {/* <PopverProvider> */}
       <Stack
         screenOptions={{
           headerShown: false,
@@ -52,6 +53,7 @@ export default function RootLayout() {
           }}
         />
       </Stack>
+      {/* </PopverProvider> */}
     </ThemeProvider>
   );
 }
