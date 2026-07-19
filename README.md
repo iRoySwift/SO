@@ -1,146 +1,141 @@
-# Welcome to your Expo app 👋
+# SO
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+基于 Expo SDK 57、React Native 和 Expo Router 开发的跨平台应用。
 
-## Get started
+## 环境要求
 
-1. Install dependencies
+- Node.js 和 npm
+- iOS：Xcode、可用的 iOS Simulator Runtime、CocoaPods
+- Android：Android Studio 和 Android SDK
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+检查 CocoaPods 是否可用：
 
 ```bash
-npm run reset-project
+pod --version
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 安装
 
-### Other setup steps
+```bash
+npm install
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+检查 Expo 依赖和项目配置：
 
-## Learn more
+```bash
+npm run check:expo
+npx expo-doctor
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## 日常开发
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+启动 Metro 开发服务器：
 
-## Join the community
+```bash
+npm start
+```
 
-Join our community of developers creating universal apps.
+常用命令：
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npm run android     # 编译并运行 Android
+npm run web         # 启动 Web
+npm run lint        # 代码检查
+```
 
-## Development Build
+只修改 JavaScript、TypeScript 或样式时，通常只需保持 Metro 运行，无需重新编译原生 App。
 
-@deprecated
-1. 生成原生 iOS 工程
+## iOS 模拟器
 
-```zsh
+编译并安装到默认 iOS 模拟器：
+
+```bash
+npx expo run:ios
+```
+
+模拟器不需要 Apple Developer 证书或 Provisioning Profile。
+
+## iOS 真机
+
+连接 iPhone 后执行：
+
+```bash
+npm run ios
+```
+
+当前 `npm run ios` 对应 `expo run:ios --device`，执行后选择目标设备。
+
+首次真机运行需要在 Xcode 中配置签名：
+
+1. 打开 `ios/SO.xcworkspace`。
+2. 进入 **SO Target > Signing & Capabilities**。
+3. 启用 **Automatically manage signing**。
+4. 选择 Apple Developer Team。
+5. 确认 Bundle Identifier 唯一且与 `app.json` 一致。
+
+```bash
+open ios/SO.xcworkspace
+```
+
+免费 Apple ID 可以用于真机调试，但开发签名有效期较短；发布到 App Store 需要加入 Apple Developer Program。
+
+## 原生工程与 CocoaPods
+
+新增原生依赖、修改 Expo Config Plugin 或升级 Expo SDK 后，重新生成并编译 iOS 工程：
+
+```bash
 npx expo prebuild -p ios
+npx expo run:ios
 ```
 
-2. 安装 CocoaPods
+`expo prebuild` 和 `expo run:ios` 通常会自动安装 Pods，不需要日常手动执行 `pod install`。自动安装失败或手动修改 `Podfile` 时再执行：
 
-```zsh
+```bash
 cd ios
 pod install
 cd ..
 ```
 
-3. 编译并装到模拟器
+谨慎使用 `npx expo prebuild --clean`。该命令会删除并重新生成原生工程，可能覆盖手动修改的 Xcode 配置。
 
-```zsh
-npm run ios
-```
+## EAS Development Build
 
-## 装到真机：
+需要 Expo 账号和 Apple Developer 账号：
 
-1. 用数据线连 iPhone
-
-- 先执行
-
-```zsh
-npx expo run:ios --device
-```
-
-2. 选择你的设备
-
-3. 第一次通常还要在 Xcode 里设置签名：
-
-- 打开 ios/SO.xcworkspace
-- Signing & Capabilities
-- 选择你的 Apple ID Team
-- 确保 Bundle Identifier 唯一
-
-## 省掉本地 Xcode 调试，也可以走 EAS Development Build 装到手机
-
-1. 登录 Expo 账号
-2. Apple Developer 账号
-3. 走云构建
-
-```zsh
+```bash
 npx eas build --profile development --platform ios
 ```
 
-## 项目依赖检测与升级
+## 升级 Expo
 
-修复或升级依赖：
+升级 Expo SDK 后执行：
 
-```zsh
-# 看普通 npm 包有没有新版本
-# 但它不会判断这些版本是否“适配 Expo”
-npm outdated
-
-# 升级普通 npm 依赖到 package.json 允许范围内的最新版本
-npm update
-
-# 升级指定 Expo 包到当前 SDK 兼容版本
-npx expo install expo-image expo-router expo-font
-```
-
-例如升级到 SDK 56：
-
-```zsh
-npm install expo@56
+```bash
+npm install expo@latest
 npx expo install --fix
-```
-
-官方流程：https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
-
-升级或修复后建议执行：
-
-```zsh
-# 看 Expo 相关包是否和当前 SDK 对齐
-npx expo install --check
-
-# 查配置、依赖、原生工程等常见问题
+npm run check:expo
 npx expo-doctor
-
 npm run lint
-npx expo start --clear
 ```
+
+升级 Expo SDK 或带原生代码的依赖后，需要重新编译 iOS 和 Android App。仅升级纯 JavaScript 依赖通常不需要重新编译。
+
+不要仅根据 `npm outdated` 批量升级 Expo 生态依赖；使用 `npx expo install` 安装与当前 SDK 兼容的版本。
+
+参考：[Expo SDK 升级指南](https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/)
+
+## 常见问题
+
+### iOS Simulator Runtime 不可用
+
+在 **Xcode > Settings > Components** 中安装兼容的 iOS Simulator Runtime，然后重新选择可用模拟器。
+
+### No profiles were found
+
+该错误表示当前真机构建缺少匹配 Bundle Identifier 的开发签名。使用模拟器可避开签名；真机运行则需在 Xcode 中配置 Team 和自动签名。
+
+## 文档
+
+- [Expo 文档](https://docs.expo.dev/)
+- [Expo Router](https://docs.expo.dev/router/introduction/)
+- [Development Build](https://docs.expo.dev/develop/development-builds/introduction/)

@@ -8,6 +8,7 @@ import { Dimensions, StyleSheet, Text, View } from "react-native";
 import Grabber from "../grabber";
 import Popver, { PopverProvider } from "../popver";
 import TransationRow from "./transation-row";
+import Slider from "./slider";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -29,12 +30,8 @@ const SendTransactionSheet = forwardRef<BottomSheetModalRef>((props, ref) => {
       ref={sheetRef}
       snapPoints={["70%"]}
       index={-1}
-      onChange={index => {
-        console.log("onChange", index);
-      }}
       onClose={() => {
         sheetRef.current?.close();
-        console.log("closed");
       }}
       style={styles.sheetContainer}
       handleComponent={null}
@@ -83,6 +80,7 @@ const SendTransactionSheet = forwardRef<BottomSheetModalRef>((props, ref) => {
               />
               <TransationRow label="Total" value="10.005 SOL" />
             </View>
+            <Slider />
           </View>
         </PopverProvider>
       </BottomSheetView>
@@ -106,6 +104,7 @@ const styles = StyleSheet.create({
     width: "100%", // 确保内部子代币列表/表单等组件能吃到 100% 的宽度
     flex: 1,
     padding: 24,
+    gap: 32,
   },
   priceInfoWrap: {
     flexDirection: "column",
