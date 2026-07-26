@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import React from "react";
 import { StyleSheet, Text } from "react-native";
@@ -27,7 +28,15 @@ const Slider: React.FC<Props> = () => {
 
   const onConfirm = async () => {
     setStatus("confirming");
-
+    let signature = "5e3f1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8g9h0i1j2k3l4m5n6o7p8q9r0s"; // Replace with actual signature from sendSol()
+    router.replace({
+      pathname: "/send/success",
+      params: {
+        amount: "10",
+        symbol: "SOL",
+        explorerUrl: `https://solscan.io/tx/${signature}`,
+      },
+    });
     // setIsSubmitting(true);
     // try {
     //   await sendSol();

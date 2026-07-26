@@ -36,7 +36,7 @@ const ScreenContainer: React.FC<ScreenContainerProps> = ({
   });
 
   return (
-    <ThemedView type="background" style={styles.container}>
+    <ThemedView style={styles.container}>
       <Bg />
       {isShowHeader && (
         <Header

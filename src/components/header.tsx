@@ -1,9 +1,10 @@
 import { HeaderHeight } from "@/constants/theme";
 import useTheme from "@/hooks/use-theme";
 import { LinearGradient } from "expo-linear-gradient";
+import { router, useNavigation } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import React from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Animated, {
   Extrapolation,
   interpolate,
@@ -19,6 +20,9 @@ type Props = {
 };
 const Header: React.FC<Props> = ({ headerStyle, children, scrollY }) => {
   const theme = useTheme();
+  const drawerNavigation = useNavigation("/(drawer)") as {
+    openDrawer: () => void;
+  };
 
   const bgStyle = useAnimatedStyle(() => {
     if (scrollY === undefined) return {};
@@ -38,19 +42,38 @@ const Header: React.FC<Props> = ({ headerStyle, children, scrollY }) => {
       <Animated.View style={[StyleSheet.absoluteFill, bgStyle]}></Animated.View>
       <View style={[styles.header]}>
         <View style={styles.left}>
-          <LinearGradient
-            colors={["#0AFF96", "#00E0FF"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.border}>
-            <View style={styles.avatar} />
-          </LinearGradient>
+          <Pressable
+            accessibilityLabel="打开账户菜单"
+            accessibilityRole="button"
+            onPress={() => drawerNavigation.openDrawer()}>
+            <LinearGradient
+              colors={["#0AFF96", "#00E0FF"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.border}>
+              <View style={styles.avatar} />
+            </LinearGradient>
+          </Pressable>
           <ThemedText style={styles.name} themeColor="text">
             Account_1
           </ThemedText>
         </View>
         <View style={styles.center}>{children}</View>
         <View style={styles.right}>
+          <Pressable
+            accessibilityLabel="交易历史"
+            accessibilityRole="button"
+            onPress={() => router.push("/history")}>
+            <SymbolView
+              name={{
+                ios: "clock.arrow.circlepath",
+                android: "history",
+                web: "history",
+              }}
+              tintColor="#FFF"
+              size={30}
+            />
+          </Pressable>
           <View>
             <SymbolView
               name={{

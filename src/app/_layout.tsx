@@ -12,6 +12,7 @@ import {
   ThemeProvider,
 } from "expo-router/react-navigation";
 import { useColorScheme } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -37,23 +38,34 @@ export default function RootLayout() {
     },
   };
   return (
-    <ThemeProvider value={themedNavigationTheme}>
-      {/* <PopverProvider> */}
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          headerShadowVisible: false,
-        }}>
-        <Stack.Screen name="(tab)" />
-        <Stack.Screen
-          name="send"
-          options={{
-            presentation: "modal",
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider value={themedNavigationTheme}>
+        {/* <PopverProvider> */}
+        <Stack
+          screenOptions={{
             headerShown: false,
-          }}
-        />
-      </Stack>
-      {/* </PopverProvider> */}
-    </ThemeProvider>
+            headerShadowVisible: false,
+          }}>
+          <Stack.Screen name="(drawer)" />
+          <Stack.Screen
+            name="history"
+            options={{
+              presentation: "transparentModal",
+              headerShown: false,
+              animation: "slide_from_bottom",
+              contentStyle: { backgroundColor: "transparent" },
+            }}
+          />
+          <Stack.Screen
+            name="send"
+            options={{
+              presentation: "modal",
+              headerShown: false,
+            }}
+          />
+        </Stack>
+        {/* </PopverProvider> */}
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
