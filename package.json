@@ -5,8 +5,9 @@
   "scripts": {
     "check:expo": "expo install --check",
     "start": "expo start",
-    "android": "expo run:android",
+    "android": "expo run:android --device",
     "ios": "expo run:ios --device",
+    "ios:provision": "xcodebuild -workspace ios/SO.xcworkspace -scheme SO -configuration Debug -destination generic/platform=iOS -allowProvisioningUpdates -allowProvisioningDeviceRegistration build",
     "web": "expo start --web",
     "lint": "expo lint",
     "prepare": "husky"

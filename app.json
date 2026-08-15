@@ -9,6 +9,7 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon",
+      "appleTeamId": "3J464Y4C53",
       "bundleIdentifier": "com.royswift.wallet.so",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
